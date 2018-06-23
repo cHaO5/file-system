@@ -87,6 +87,12 @@ public class FileDirectoryTreeGraph extends TreeView<String> {
 		return instance;
 	}
 
+	public static void format() {
+//		System.out.println("Format!");
+//		instance = new FileDirectoryTreeGraph();
+		fileSystem.format();
+	}
+
 	//获取根结点菜单项
 	public MyContextMenu getRootMenu() {
 		return this.rootMenu;
@@ -120,6 +126,7 @@ public class FileDirectoryTreeGraph extends TreeView<String> {
 	public void removeChildItem(MyTreeItem selectedItem) {
 		//获取父结点
 		MyTreeItem parentItem = (MyTreeItem) selectedItem.getParent();
+		if (parentItem == null) System.out.println("parentItem is null!");
 		//移除当前结点
 		parentItem.getChildren().remove(selectedItem);
 		//父结点�?�中
@@ -354,6 +361,8 @@ public class FileDirectoryTreeGraph extends TreeView<String> {
 		private MenuItem addFolder = new MenuItem("新建文件夹");
 		//属性菜单项
 		private MenuItem attribute = new MenuItem("属性");
+		//Format
+		private MenuItem format = new MenuItem("格式化");
 
 		//构造函数
 		public MyContextMenu(int attribute) { 
@@ -372,8 +381,10 @@ public class FileDirectoryTreeGraph extends TreeView<String> {
 			open = new MenuItem("打开");
 			//新建文件夹菜单项
 			addFolder = new MenuItem("新建文件夹");
+			//格式化磁盘
+			format = new MenuItem("格式化");
 			//添加菜单项到菜单项
-			this.getItems().addAll(open, addFolder);
+			this.getItems().addAll(open, addFolder, format);
 		}
 
 		//创建文件夹菜单
@@ -413,6 +424,9 @@ public class FileDirectoryTreeGraph extends TreeView<String> {
 			return attribute;
 		}
 
+		public MenuItem getFormat() {
+			return format;
+		}
 	}
 
 }

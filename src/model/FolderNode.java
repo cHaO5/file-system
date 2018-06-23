@@ -1,5 +1,9 @@
 package model;
 
+import com.sun.tools.corba.se.idl.constExpr.Times;
+
+import java.sql.Timestamp;
+
 public class FolderNode {
     private String nodePathName;
     private String nodeType;
@@ -7,6 +11,8 @@ public class FolderNode {
     private int nodeBeginDisk;
     private int nodeLength;
     private int readType = 1;
+    private Timestamp createTime;
+    private Timestamp lastModifiedTime;
 
     public FolderNode() {
 
@@ -30,6 +36,9 @@ public class FolderNode {
         this.nodeAttritute = nodeAttritute;
         this.nodeBeginDisk = nodeBeginDisk;
         this.nodeLength = nodeLength;
+        Timestamp temp = new Timestamp(System.currentTimeMillis());
+        createTime = temp;
+        lastModifiedTime = temp;
     }
 
     public String getNodePathName() {
@@ -84,5 +93,21 @@ public class FolderNode {
 
     public int getReadType(){
         return this.readType;
+    }
+
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
+
+    public Timestamp getLastModifiedTime() {
+        return lastModifiedTime;
+    }
+
+    public void setLastModifiedTime(Timestamp lastModifiedTime) {
+        this.lastModifiedTime = lastModifiedTime;
     }
 }

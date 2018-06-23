@@ -26,6 +26,18 @@ public class FAT {
         return fat;
     }
 
+    public void format() {
+        System.out.println("FAT format!");
+        item = new int[128];
+        item[0] = -1;
+        item[1] = -1;
+        item[2] = -1;
+        for(int i = 3; i < 128; i++) {
+
+            item[i] = 0;
+        }
+    }
+
 
     public int getFreeDisk() {
 

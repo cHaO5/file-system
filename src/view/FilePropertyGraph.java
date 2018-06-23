@@ -15,37 +15,42 @@ import javafx.stage.Stage;
 import model.MyFile;
 import view.FileDirectoryTreeGraph.MyTreeItem;
 
-public class FilePropertyGraph extends Stage{
-	   public MyTreeItem chooseTreeItem;
-	   private Label name;      //命名标签
-	   private int attribute;	//属性
-	   private Label ItemAttribute;//属性标签
-	   private Label path;     //路径	
-	   private static final int STAGE_WIDTH = 250;
-	   private static final int STAGE_HEIGHT = 300;
+public class FilePropertyGraph extends Stage {
+    public MyTreeItem chooseTreeItem;
+    private Label name;      //命名标签
+    private int attribute;    //属性
+    private Label ItemAttribute;//属性标签
+    private Label path;     //路径
+	private Label createTime;
+	private Label lastModifiedTime;
+    private static final int STAGE_WIDTH = 300;
+    private static final int STAGE_HEIGHT = 250;
 //	   public static int readType;//1代表只读       0代表隐藏
-	   
-	  public FilePropertyGraph(MyTreeItem selectedItem){
-			initGraph(selectedItem);
-	
-		}
-		public void initGraph(MyTreeItem selectedItem){
-			VBox pane = new VBox();
-			//标签
-			this.name= new Label("名字:           "+selectedItem.getFolderNode().getNodePathName());
-			this.name.setLayoutX(100);
-			this.attribute = selectedItem.getAttribute();
-				if(this.attribute == MyFile.FILE_VALUE){
-					ItemAttribute = new Label("类型:           "+"File");
-				}else if(this.attribute==MyFile.FOLDER_VALUE){
-					ItemAttribute = new Label("类型:           "+"Floder");
-				}
-			ItemAttribute.setLayoutX(100);
-			
-			this.path = new Label("路径:           "+selectedItem.getPath());
-			this.path.setLayoutX(100);
-			
-			//属性单选框
+
+    public FilePropertyGraph(MyTreeItem selectedItem) {
+        initGraph(selectedItem);
+
+    }
+
+    public void initGraph(MyTreeItem selectedItem) {
+        VBox pane = new VBox();
+        //标签
+        this.name = new Label("文件名: " + selectedItem.getFolderNode().getNodePathName());
+        this.name.setLayoutX(100);
+        this.attribute = selectedItem.getAttribute();
+        if (this.attribute == MyFile.FILE_VALUE) {
+            ItemAttribute = new Label("类型: " + "File");
+        } else if (this.attribute == MyFile.FOLDER_VALUE) {
+            ItemAttribute = new Label("类型: " + "Floder");
+        }
+        ItemAttribute.setLayoutX(100);
+
+        this.path = new Label("路径: " + selectedItem.getPath());
+        this.path.setLayoutX(100);
+        this.createTime = new Label("创建时间: " + selectedItem.getFolderNode().getCreateTime());
+        this.lastModifiedTime = new Label("修改时间: " + selectedItem.getFolderNode().getLastModifiedTime());
+
+        //属性单选框
 //			Label choose = new Label("属性:");
 //			final ToggleGroup group =new ToggleGroup();
 //			RadioButton rb1 = new RadioButton("可读可写");
@@ -56,9 +61,9 @@ public class FilePropertyGraph extends Stage{
 //			rb2.setPadding(new Insets(0,0,0,60));
 //			rb1.setToggleGroup(group);
 //			rb2.setToggleGroup(group);
-			
-			
-			//确认取消按钮及点击事件
+
+
+        //确认取消按钮及点击事件
 //			javafx.scene.control.Button agree = new javafx.scene.control.Button("确认");
 //			javafx.scene.control.Button cancel = new javafx.scene.control.Button("取消");
 //			agree.setOnAction(new EventHandler<ActionEvent>() {
@@ -94,22 +99,22 @@ public class FilePropertyGraph extends Stage{
 //			hbox.setSpacing(50);
 
 //			pane.getChildren().addAll(this.name,ItemAttribute,this.path,choose,rb1,rb2);
-			pane.getChildren().addAll(this.name,ItemAttribute,this.path);
+        pane.getChildren().addAll(this.name, ItemAttribute, this.path, this.createTime, this.lastModifiedTime);
 //			pane.getChildren().add(hbox);
-			pane.setAlignment(Pos.CENTER_LEFT);
-			pane.setPadding(new Insets(25));
-			pane.setSpacing(20);
-			Scene scene = new Scene(pane, STAGE_WIDTH, STAGE_HEIGHT, Color.WHITE);
-			this.setScene(scene);
+        pane.setAlignment(Pos.CENTER_LEFT);
+        pane.setPadding(new Insets(25));
+        pane.setSpacing(20);
+        Scene scene = new Scene(pane, STAGE_WIDTH, STAGE_HEIGHT, Color.WHITE);
+        this.setScene(scene);
 //
 //
-		}
-		
-		/*
-		 *  @return   readType 1表示可读 0表示隐藏
-		 */
+    }
+
+    /*
+     *  @return   readType 1表示可读 0表示隐藏
+     */
 //		 public int getReadtype() {
 //			return readType;
 //		}
-		
+
 }
