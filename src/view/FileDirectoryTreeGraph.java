@@ -145,7 +145,7 @@ public class FileDirectoryTreeGraph extends TreeView<String> {
 		//去除路径中的'ROOT:'子串
 		String pathName = StringMethod.deleRootStr(path);
 		//根目录系统自带，无需初始化
-		if("\\".equals(pathName))
+		if("/".equals(pathName))
 			return null;
 		//子节点中的文件目录项信息
 		FolderNode childFolderNode  = fileSystem.createFile(pathName);
@@ -179,18 +179,18 @@ public class FileDirectoryTreeGraph extends TreeView<String> {
 				//设置文件夹名字
 				emptyIcon = new ImageView(new Image(getClass().getResourceAsStream(emptyFolderImageSrc)));
 				this.setGraphic(emptyIcon);
-				this.setValue("新建文件夹");
+				this.setValue("untitled folder");
 				normalIcon = new ImageView(new Image(getClass().getResourceAsStream(folderImageSrc)));
 			} else if (attribute == MyFile.FILE_VALUE) {
 				//设置文件名
 				ImageView icon = new ImageView(new Image(getClass().getResourceAsStream(fileImageSrc)));
 				this.setGraphic(icon);
-				this.setValue("新建文件.txt");
+				this.setValue("untitled.txt");
 			} else {
 				//系统文件目录
 				ImageView icon = new ImageView(new Image(getClass().getResourceAsStream(rootImageSrc)));
 				this.setGraphic(icon);
-				this.setValue("系统文件");
+				this.setValue("SystemFile");
 			}
 			//设置路径
 			this.path = getItemPath();
@@ -287,12 +287,12 @@ public class FileDirectoryTreeGraph extends TreeView<String> {
 				temp = (MyTreeItem) temp.getParentItem();
 			} 
 			//获取完整路径
-			StringBuilder path = new StringBuilder("Root:\\");
+			StringBuilder path = new StringBuilder("Root:/");
 			if (pathList != null && pathList.size() > 0) {
 				for(int i = pathList.size()-1; i >= 0; i--) {
 					path.append(pathList.get(i));
 					if (i != 0) {
-						path.append("\\");
+						path.append("/");
 					}
 				}
 			}
@@ -314,10 +314,10 @@ public class FileDirectoryTreeGraph extends TreeView<String> {
 			
 			String pathName = this.getPath();
 			boolean flag = true;
-			String fileName = "新建文件";
+			String fileName = "untitled";
 			if(attribute == MyFile.FILE_VALUE)
 			{
-				fileName = "新建文件.txt";
+				fileName = "untitled.txt";
 				for(int i = 1; i < 8; i++) 
 				{
 					flag = fileSystem.checkRename(pathName, fileName);
@@ -325,11 +325,11 @@ public class FileDirectoryTreeGraph extends TreeView<String> {
 					{
 						break;
 					}
-					fileName = "新建文件(" + i + ").txt";
+					fileName = "untitled(" + i + ").txt";
 				}
 			} else if (attribute == MyFile.FOLDER_VALUE)
 			{
-				fileName = "新建文件夹";
+				fileName = "untitled folder";
 				for(int i = 1; i < 8; i++) 
 				{
 					flag = fileSystem.checkRename(pathName, fileName);
@@ -337,7 +337,7 @@ public class FileDirectoryTreeGraph extends TreeView<String> {
 					{
 						break;
 					}
-					fileName = "新建文件夹(" + i + ")";
+					fileName = "untitled folder(" + i + ")";
 				}
 			} else if (attribute == MyFile.SYSTEM_VALUE) {
 				fileName = "ROOT";
@@ -352,17 +352,17 @@ public class FileDirectoryTreeGraph extends TreeView<String> {
 	class MyContextMenu extends ContextMenu {
 
 		//打开菜单项
-		private MenuItem open = new MenuItem("打开");
+		private MenuItem open = new MenuItem("Open");
 		//删除菜单项
-		private MenuItem delete = new MenuItem("删除");
+		private MenuItem delete = new MenuItem("Delete");
 		//重命名菜单项
-		private MenuItem rename = new MenuItem("重命名");
+		private MenuItem rename = new MenuItem("Rename");
 		//新建文件夹菜单项
-		private MenuItem addFolder = new MenuItem("新建文件夹");
+		private MenuItem addFolder = new MenuItem("New Folder");
 		//属性菜单项
-		private MenuItem attribute = new MenuItem("属性");
+		private MenuItem attribute = new MenuItem("Property");
 		//Format
-		private MenuItem format = new MenuItem("格式化");
+		private MenuItem format = new MenuItem("Format");
 
 		//构造函数
 		public MyContextMenu(int attribute) { 
@@ -378,11 +378,11 @@ public class FileDirectoryTreeGraph extends TreeView<String> {
 		//创建系统盘菜单
 		public void createRootMenu() {
 			//打开菜单项
-			open = new MenuItem("打开");
+			open = new MenuItem("Open");
 			//新建文件夹菜单项
-			addFolder = new MenuItem("新建文件夹");
+			addFolder = new MenuItem("New Folder");
 			//格式化磁盘
-			format = new MenuItem("格式化");
+			format = new MenuItem("Format");
 			//添加菜单项到菜单项
 			this.getItems().addAll(open, addFolder, format);
 		}
@@ -390,15 +390,15 @@ public class FileDirectoryTreeGraph extends TreeView<String> {
 		//创建文件夹菜单
 		public void createFolderMenu() {
 			//打开菜单项
-			open = new MenuItem("打开");
+			open = new MenuItem("Open");
 			//删除菜单项
-			delete = new MenuItem("删除");
+			delete = new MenuItem("Delete");
 			//重命名菜单项
-			rename = new MenuItem("重命名");
+			rename = new MenuItem("Rename");
 			//新建文件夹菜单项
-			addFolder = new MenuItem("新建文件夹");
+			addFolder = new MenuItem("New Folder");
 			//属性菜单项
-			attribute = new MenuItem("属性");
+			attribute = new MenuItem("Property");
 			//添加菜单项到菜单项
 			this.getItems().addAll(open, delete, rename, addFolder, attribute);
 		}

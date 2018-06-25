@@ -28,15 +28,17 @@ public class MainFrame extends Application {
 	private static FileSystem fileSystem;  //文件管理系统
 //	private static DiskBlockGraph diskBlockGraph;  //磁盘块面板
 //	private static FATGraph fatGraph; //model.FAT 磁盘分配布局
-	private static HBox diskGraphBox;	//磁盘分配面板
+//	private static HBox diskGraphBox;	//磁盘分配面板
 	private static FileManagerGraph managerGraph;	//文件管理窗口
-	private static VBox blockBox;
+//	private static VBox blockBox;
 	public static List<MyTreeItem> treeItemList = new ArrayList<>();	//打开文件子项
 	public static Map<MyTreeItem, Stage> stageMap = new HashMap<>();	//文件窗口集合
 
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+
+
 			stage = primaryStage;
 			Group group = new Group();
 //			ImageView backImage = new ImageView(new Image(getClass().getResourceAsStream("/image/pane.jpg")));

@@ -2,6 +2,7 @@ package view;
 
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -19,7 +20,8 @@ import view.FileDirectoryTreeGraph.MyTreeItem;
 
 public class FileContentEditGraph extends Stage {
 
-	private FileMenuBar menuBar;	//菜单�? -- 包括保存等操�?
+	private FileMenuBar menuBar;
+//	private FileMenuBar menuBar;	//菜单�? -- 包括保存等操�?
 	private TextArea contentArea;	//文本内容�?
 	private String fileName;	//窗口的名称，也是文件的名�?
 	private String pathName;    //文件路径
@@ -36,7 +38,7 @@ public class FileContentEditGraph extends Stage {
 	//构�?�函�?
 	public FileContentEditGraph() {
 		//初始化窗�?
-		this(null, "无标题");
+		this(null, "Untitled");
 	}
 
 	public FileContentEditGraph(MyTreeItem treeItem, String filaname) {
@@ -86,29 +88,39 @@ public class FileContentEditGraph extends Stage {
 		//添加
 		root.getChildren().addAll(menuBar, contentArea);
 		//设置名称
-		this.setTitle(fileName+" - 文本编辑器");
+		this.setTitle(fileName+" - Editor");
 		Scene scene = new Scene(root, STAGE_WIDTH, STAGE_HEIGHT, Color.WHITE);
 		this.setScene(scene);
 	}
 
 	//自定义的菜单�?
-	class FileMenuBar extends MenuBar {
+	class FileMenuBar extends ToolBar {
+//	class FileMenuBar extends MenuBar {
 
-		private Menu fileOper;	//文件操作菜单
-		private MenuItem save;	//保存菜单�?
-		private MenuItem saveExit;	//保存并�??出菜单项
-		private MenuItem exit;	//�?出菜单项
-		private Menu textFormat;	//文本格式菜单
-		private RadioMenuItem autoWrap;	//自动换行菜单�?
-		private Menu textFont;	//字体设置菜单
-		private Menu fontType;	//字体
-		private Menu fontWeight;	//字形
-		private Menu fontSize;	//字体大小
+//		private Menu fileOper;	//文件操作菜单
+//		private MenuItem save;	//保存菜单�?
+//		private MenuItem saveExit;	//保存并�??出菜单项
+//		private MenuItem exit;	//�?出菜单项
+//		private Menu textFormat;	//文本格式菜单
+//		private RadioMenuItem autoWrap;	//自动换行菜单�?
+//		private Menu textFont;	//字体设置菜单
+//		private Menu fontType;	//字体
+//		private Menu fontWeight;	//字形
+//		private Menu fontSize;	//字体大小
 		private String type = "宋体";	//默认宋体
 		private FontWeight weight = FontWeight.NORMAL;	//默认标准字形
 		private FontPosture posture = FontPosture.REGULAR;
 		private Double size = 14.0;	//默认字体大小14
 		private FileSystem fileSystem;
+
+//		private StackPane buttons;
+//		private Menu saveButton;
+//		private Menu saveExitButton;
+//		private Menu exitButton;
+
+		private Button saveButton;
+		private Button saveExitButton;
+		private Button exitButton;
 
 		//构�?�函�?
 		public FileMenuBar() {
@@ -122,12 +134,25 @@ public class FileContentEditGraph extends Stage {
 			//获取文件系统对象
 			fileSystem = FileSystem.getInstance();
 			//文件操作菜单
-			this.fileOper = new Menu("文件");	//菜单
-			this.save = new MenuItem("保存");	//菜单�?
-			this.saveExit = new MenuItem("保存并退出");
-			this.exit = new MenuItem("退出");
-			//添加菜单项到菜单
-			this.fileOper.getItems().addAll(save, saveExit, new SeparatorMenuItem(), exit);
+//			this.fileOper = new Menu("文件");	//菜单
+//			this.save = new MenuItem("保存");	//菜单�?
+//			this.saveExit = new MenuItem("保存并退出");
+//			this.exit = new MenuItem("退出");
+//			//添加菜单项到菜单
+//			this.fileOper.getItems().addAll(save, saveExit, new SeparatorMenuItem(), exit);
+
+//			this.saveButton = new Menu("Save");
+//			this.saveExitButton = new Menu("Save&Exit");
+//			this.exitButton = new Menu("Exit");
+////			this.buttons.getChildren().addAll(saveButton, saveExitButton, exitButton);
+//			System.out.println("show button!");
+
+			this.saveButton = new Button("Save");
+			this.saveExitButton = new Button("Save&Exit");
+			this.exitButton = new Button("Exit");
+//			this.buttons.getChildren().addAll(saveButton, saveExitButton, exitButton);
+			System.out.println("show button!");
+
 
 //			//格式菜单
 //			this.textFormat = new Menu("格式");
@@ -205,7 +230,10 @@ public class FileContentEditGraph extends Stage {
 
 			//添加菜单到菜单栏
 //			this.getMenus().addAll(fileOper, textFormat);
-			this.getMenus().add(fileOper);
+
+			this.getItems().addAll(saveButton, saveExitButton, exitButton);
+//			this.getMenus().addAll(fileOper, saveButton, saveExitButton, exitButton);
+//			this.getChildren().add(buttons);
 			//为文本区域设置默认样�?
 			contentArea.setFont(Font.font(type, weight, posture, size));
 
@@ -260,20 +288,23 @@ public class FileContentEditGraph extends Stage {
 //				}
 //			});
 
-			//为文本编辑器菜单栏中保存菜单项添加点击事件
-			addSaveActionEvent();
-			//为文本编辑器菜单栏中保存并退出菜单项添加点击事件
-			addSaveAndExitEvent();
-			//为文本编辑器菜单栏中退出菜单项添加点击事件
-			addExitEvent();
+//			//为文本编辑器菜单栏中保存菜单项添加点击事件
+//			addSaveActionEvent();
+//			//为文本编辑器菜单栏中保存并退出菜单项添加点击事件
+//			addSaveAndExitEvent();
+//			//为文本编辑器菜单栏中退出菜单项添加点击事件
+//			addExitEvent();
+
+
+			addSaveButtonEvent();
+			addSaveAndExitButtonEvent();
+			addExitButtonEvent();
 
 		}
-		/**
-		 * 描述： 为文本编辑器菜单栏中保存菜单项添加点击事件
-		 */
-		private void addSaveActionEvent() {
 
-			this.save.setOnAction(e->{
+		private void addSaveButtonEvent() {
+
+			this.saveButton.setOnAction(e->{
 
 				String buffer = contentArea.getText();
 				//规范文件路径
@@ -285,13 +316,9 @@ public class FileContentEditGraph extends Stage {
 			});
 		}
 
-		/**
-		 * 描述： 为文本编辑器菜单栏中保存并退出菜单项添加点击事件
-		 * @return
-		 */
-		private void addSaveAndExitEvent() {
+		private void addSaveAndExitButtonEvent() {
 
-			this.saveExit.setOnAction(e->{
+			this.saveExitButton.setOnAction(e->{
 
 				String buffer = contentArea.getText();
 				//规范文件路径
@@ -305,30 +332,77 @@ public class FileContentEditGraph extends Stage {
 			});
 		}
 
-		/**
-		 * 描述： 为文本编辑器菜单栏中保存并退出菜单项添加点击事件
-		 * @return
-		 */
-		private void addExitEvent() {
+		private void addExitButtonEvent() {
 
-			this.exit.setOnAction(e->{
+			this.exitButton.setOnAction(e->{
 
 				closeStage();
 			});
 		}
 
-		//获取菜单
-		public Menu getFileOper() {
-			return fileOper;
-		}
 
-		public Menu getTextFormat() {
-			return textFormat;
-		}
 
-		public Menu getTextFont() {
-			return textFont;
-		}
+		/**
+		 * 描述： 为文本编辑器菜单栏中保存菜单项添加点击事件
+		 */
+//		private void addSaveActionEvent() {
+//
+//			this.save.setOnAction(e->{
+//
+//				String buffer = contentArea.getText();
+//				//规范文件路径
+//				String path = StringMethod.deleRootStr(pathName);
+//				//将文本编辑器中的内容保存到磁盘中
+//				fileSystem.storeIntoFile(path, buffer);
+//				//渲染主界面
+//				MainFrame.paintMainFrame();
+//			});
+//		}
+//
+//		/**
+//		 * 描述： 为文本编辑器菜单栏中保存并退出菜单项添加点击事件
+//		 * @return
+//		 */
+//		private void addSaveAndExitEvent() {
+//
+//			this.saveExit.setOnAction(e->{
+//
+//				String buffer = contentArea.getText();
+//				//规范文件路径
+//				String path = StringMethod.deleRootStr(pathName);
+//				//将文本编辑器中的内容保存到磁盘中
+//				fileSystem.storeIntoFile(path, buffer);
+//				//渲染主界面
+//				MainFrame.paintMainFrame();
+//				//关闭文本编辑器
+//				closeStage();
+//			});
+//		}
+//
+//		/**
+//		 * 描述： 为文本编辑器菜单栏中保存并退出菜单项添加点击事件
+//		 * @return
+//		 */
+//		private void addExitEvent() {
+//
+//			this.exit.setOnAction(e->{
+//
+//				closeStage();
+//			});
+//		}
+//
+//		//获取菜单
+//		public Menu getFileOper() {
+//			return fileOper;
+//		}
+
+//		public Menu getTextFormat() {
+//			return textFormat;
+//		}
+//
+//		public Menu getTextFont() {
+//			return textFont;
+//		}
 
 	}
 

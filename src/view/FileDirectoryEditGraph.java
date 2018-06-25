@@ -27,7 +27,7 @@ import view.FileDirectoryTreeGraph.MyTreeItem;
  *
  */
 
-public class FileDirectoryEditGraph extends FlowPane {
+public class  FileDirectoryEditGraph extends FlowPane {
 
 	//图标
 	private String fileIconSrc = "/image/file96.png";
@@ -136,8 +136,8 @@ public class FileDirectoryEditGraph extends FlowPane {
 		//初始化菜单项
 		private void initMenu() {
 			//创建菜单�?
-			addFile = new MenuItem("新建文件");
-			addFolder = new MenuItem("新建文件夹");
+			addFile = new MenuItem("New File");
+			addFolder = new MenuItem("New Folder");
 			//添加菜单项到菜单�?
 			this.getItems().addAll(addFile, addFolder);
 		}
@@ -256,7 +256,7 @@ public class FileDirectoryEditGraph extends FlowPane {
 				boolean flag = updateFilename();
 				if(!flag) {
 					
-					System.out.println("已存在相同文件名");
+					System.out.println("The name is already taken. Please choose a different name.");
 				}
 			});
 //FIXME 设置文件名称			
@@ -450,10 +450,10 @@ public class FileDirectoryEditGraph extends FlowPane {
 			//初始化菜�?
 			private void initMenu() {
 				//创建菜单�?
-				open = new MenuItem("打开");
-				delete = new MenuItem("删除");
-				rename = new MenuItem("重命名");
-				attribute = new MenuItem("属性");
+				open = new MenuItem("Open");
+				delete = new MenuItem("Delete");
+				rename = new MenuItem("Rename");
+				attribute = new MenuItem("Property");
 				//添加菜单项到菜单
 				this.getItems().addAll(open, delete, rename, attribute);
 				//为菜单项设置事件
