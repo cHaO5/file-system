@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.Disk;
 import model.MyFile;
 import service.FileSystem;
 import util.StringMethod;
@@ -215,6 +216,61 @@ public class FileManagerGraph extends BorderPane {
 		//fileSystem.format();
 	}
 
+	public void recover() {
+		Alert information = new Alert(Alert.AlertType.INFORMATION,"Recover Successfully!");
+		information.setTitle("Message"); //设置标题，不设置默认标题为本地语言的information
+		information.setHeaderText("System Information"); //设置头标题，默认标题为本地语言的information
+		//infor.setOnAction((ActionEvent)->{
+			information.showAndWait(); //显示弹窗，同时后续代码等挂起
+		//}) ;
+//		Disk[] blueprint = fileSystem.getDisks();
+//
+//		MyTreeItem rootItem = new MyTreeItem(MyFile.SYSTEM_VALUE, null);
+//		treeGraph.setRoot(rootItem);
+//		rootItem.setExpanded(true);
+//		//fileSystem.format();
+//		FileSystem tempFileSystem = new FileSystem();
+//
+//		for (int i = 0; i < 8; ++i) {
+//			if (blueprint[2].getFolderNode()[i].getNodeAttritute() == 3) {
+////				FileDirectoryItem item = this.addItemToEditGraph(MyFile.FILE_VALUE);
+////				MyTreeItem selectedItem = (MyTreeItem) this.treeGraph.getSelectionModel().getSelectedItem();
+////				selectedItem.getPath();
+////				//将结点加入子结点集合
+////				this.currentItem.addChild(item.getTreeItem());
+////
+////				//目录树添加文件结点
+////				this.currentItem.getChildren().add(item.getTreeItem());
+//
+//				MyTreeItem item = new MyTreeItem(blueprint[2].getFolderNode()[i].getNodeAttritute(), rootItem,
+//						blueprint[2].getFolderNode()[i].getNodePathName(),
+//						blueprint[2].getFolderNode()[i].getNodeType(),
+//						blueprint[2].getFolderNode()[i].getNodeAttritute(),
+//						blueprint[2].getFolderNode()[i].getNodeBeginDisk(),
+//						blueprint[2].getFolderNode()[i].getNodeLength(),
+//						blueprint[2].getFolderNode()[i].getCreateTime(),
+//						blueprint[2].getFolderNode()[i].getLastModifiedTime());
+//
+//				//TODO
+//				this.editGraph.addFileDirectory(MyFile.FILE_VALUE, rootItem);
+//				//将结点加入子结点集合
+//				this.currentItem.addChild(item);
+//
+//				//目录树添加文件结点
+//				this.currentItem.getChildren().add(item);
+//			} else if (blueprint[2].getFolderNode()[i].getNodeAttritute() == 12) {
+//				//编辑窗口添加文件�?
+//				FileDirectoryItem item = this.addItemToEditGraph(MyFile.FOLDER_VALUE);
+//				//将结点加入子结点集合
+//				this.currentItem.addChild(item.getTreeItem());
+//				//目录树添加文件夹结点
+//				this.currentItem.getChildren().add(item.getTreeItem());
+//
+////				if (blueprint[2].getFolderNode()[i].)
+//			}
+//		}
+	}
+
 	//获取结点名字
 	public String getTreeItemName(){
 		MyTreeItem item = (MyTreeItem) this.treeGraph.getSelectionModel().getSelectedItem();
@@ -343,7 +399,10 @@ public class FileManagerGraph extends BorderPane {
 		});
 
 		Button recoverBtn = this.pathBarGraph.getRecover();
-		recoverBtn.setOnMouseClicked(e-> fileSystem.recover());
+		recoverBtn.setOnMouseClicked(e-> {
+			fileSystem.recover();
+			recover();
+		});
 
 		Button backUpBtn = this.pathBarGraph.getBackUp();
 		backUpBtn.setOnMouseClicked(e-> fileSystem.backUp());

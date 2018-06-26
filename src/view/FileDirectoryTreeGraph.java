@@ -3,12 +3,15 @@ package view;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import jdk.internal.org.objectweb.asm.tree.FieldNode;
+import model.Disk;
 import model.FolderNode;
 import model.MyFile;
 import service.FileSystem;
 import util.StringMethod;
 import view.FileDirectoryEditGraph.FileDirectoryItem;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,7 +78,6 @@ public class FileDirectoryTreeGraph extends TreeView<String> {
 			}
 		});
 
-
 		//默认选中根结�?
 		this.getSelectionModel().select(rootItem);
 	}
@@ -88,11 +90,6 @@ public class FileDirectoryTreeGraph extends TreeView<String> {
 		return instance;
 	}
 
-	public static void format() {
-//		System.out.println("Format!");
-//		instance = new FileDirectoryTreeGraph();
-		fileSystem.format();
-	}
 
 	//获取根结点菜单项
 	public MyContextMenu getRootMenu() {
@@ -205,6 +202,49 @@ public class FileDirectoryTreeGraph extends TreeView<String> {
 			//将新文件名登记到目录项中
 			folderNode = initChildItem(attribute, this.path);
 			
+		}
+
+		public MyTreeItem(int attribute, MyTreeItem parentItem, String nodePathName, String nodeType, int  nodeAttritute,
+						  int  nodeBeginDisk, int  nodeLength, Timestamp createTime, Timestamp lastModifiedTime) {
+
+			//初始化文件目录登记项
+			folderNode = new FolderNode(nodePathName, nodeType, nodeAttritute, nodeBeginDisk, nodeLength, createTime, lastModifiedTime);
+			//接收属性
+			this.attribute = attribute;
+			//接收父结点
+			this.parentItem = parentItem;
+			//初始化集合
+			this.childList = new ArrayList<MyTreeItem>();
+			//设置图标和名字
+			if (attribute == MyFile.FOLDER_VALUE) {
+				//设置文件夹名字
+				emptyIcon = new ImageView(new Image(getClass().getResourceAsStream(emptyFolderImageSrc)));
+				this.setGraphic(emptyIcon);
+				this.setValue(nodePathName);
+				normalIcon = new ImageView(new Image(getClass().getResourceAsStream(folderImageSrc)));
+			} else if (attribute == MyFile.FILE_VALUE) {
+				//设置文件名
+				ImageView icon = new ImageView(new Image(getClass().getResourceAsStream(fileImageSrc)));
+				this.setGraphic(icon);
+				this.setValue(nodePathName);
+			} else {
+				//系统文件目录
+				ImageView icon = new ImageView(new Image(getClass().getResourceAsStream(rootImageSrc)));
+				this.setGraphic(icon);
+				this.setValue("SystemFile");
+			}
+			//设置路径
+			this.path = getItemPath();
+			String fileName = getFileName(attribute);
+			this.setValue(fileName);
+			this.path = getItemPath();
+			//绑定路径更新
+			this.valueProperty().addListener(e->{
+				this.path = getItemPath();
+			});
+			//将新文件名登记到目录项中
+			folderNode = initChildItem(attribute, this.path);
+
 		}
 		
 		/**

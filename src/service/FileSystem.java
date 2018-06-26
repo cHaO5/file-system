@@ -1,5 +1,6 @@
 package service;
 
+import javafx.scene.control.Alert;
 import model.FolderNode;
 import model.Disk;
 import model.FAT;
@@ -191,7 +192,7 @@ public class FileSystem {
 //                }
 //            }
             JSONArray jsonFAT = json.getJSONArray("FAT");
-            for (int i = 0; i < 128; ++i) {
+            for (int i = 2; i < 128; ++i) {
                 fat.setItem(i, jsonFAT.getInt(i));
                 if(jsonFAT.getInt(i) == -1) {
                     for (int folderNodeNum = 0; folderNodeNum < 8; ++folderNodeNum) {
@@ -343,6 +344,10 @@ public class FileSystem {
         }
 
         System.out.println("BackUp!");
+        Alert information = new Alert(Alert.AlertType.INFORMATION,"Backup Successfully! You can check recover.json .");
+        information.setTitle("Message"); //设置标题，不设置默认标题为本地语言的information
+        information.setHeaderText("System Information"); //设置头标题，默认标题为本地语言的information
+        information.showAndWait(); //显示弹窗，同时后续代码等挂起
     }
 
     /**

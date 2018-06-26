@@ -25,20 +25,25 @@ public class FolderNode {
         lastModifiedTime = new Timestamp(System.currentTimeMillis());
     }
 
-    public FolderNode(int attribute, String nodePathName, int  nodeBeginDisk) {
+    public FolderNode(String nodePathName, String nodeType, int  nodeAttribute,
+                      int  nodeBeginDisk, int  nodeLength, Timestamp createTime, Timestamp lastModifiedTime) {
 
-        this.nodeAttritute = attribute;
+        this.nodeAttritute = nodeAttribute;
         this.nodePathName = nodePathName;
         this.nodeBeginDisk = nodeBeginDisk;
         this.nodeLength = 1;
+        this.nodeType = nodeType;
+        this.nodeLength = nodeLength;
+        this.createTime = createTime;
+        this.lastModifiedTime = lastModifiedTime;
     }
 
-    public void initFolderNode(String nodePathName, String nodeType, int  nodeAttritute,
+    public void initFolderNode(String nodePathName, String nodeType, int  nodeAttribute,
                                int  nodeBeginDisk, int  nodeLength) {
 
         this.nodePathName = nodePathName;
         this.nodeType = new String(nodeType);
-        this.nodeAttritute = nodeAttritute;
+        this.nodeAttritute = nodeAttribute;
         this.nodeBeginDisk = nodeBeginDisk;
         this.nodeLength = nodeLength;
         Timestamp temp = new Timestamp(System.currentTimeMillis());
