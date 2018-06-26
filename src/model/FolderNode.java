@@ -15,9 +15,14 @@ public class FolderNode {
     private Timestamp lastModifiedTime;
 
     public FolderNode() {
-
-        nodeAttritute = 0;   //锟斤拷示锟矫登硷拷锟斤拷未锟斤拷使锟斤拷
-        nodeBeginDisk = 0;   //锟斤拷示锟矫登硷拷锟斤拷未锟斤拷使锟斤拷
+        nodePathName = "";
+        nodeType = "";
+        nodeAttritute = 0;
+        nodeBeginDisk = 0;
+        nodeLength = 0;
+        readType = 1;
+        createTime = new Timestamp(System.currentTimeMillis());
+        lastModifiedTime = new Timestamp(System.currentTimeMillis());
     }
 
     public FolderNode(int attribute, String nodePathName, int  nodeBeginDisk) {

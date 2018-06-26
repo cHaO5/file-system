@@ -91,4 +91,8 @@ public class FAT {
     public int[] getItem() {
         return item;
     }
+
+    public void setItem(int i, int num) {
+        item[i] = num;
+    }
 }

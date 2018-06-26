@@ -75,6 +75,7 @@ public class FileDirectoryTreeGraph extends TreeView<String> {
 			}
 		});
 
+
 		//默认选中根结�?
 		this.getSelectionModel().select(rootItem);
 	}

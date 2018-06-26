@@ -56,7 +56,7 @@ public class MainFrame extends Application {
 //			Scene scene = new Scene(group, 1080, 680);
 			Scene scene = new Scene(group, 770, 470);
 
-			scene.getStylesheets().add(getClass().getResource("treeView.css").toExternalForm());
+//			scene.getStylesheets().add(getClass().getResourcse("treeView.css").toExternalForm());
 
 			//添加文件管理窗口
 			managerGraph = new FileManagerGraph();
