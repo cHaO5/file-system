@@ -123,7 +123,11 @@ public class FileSystem {
     public void recover() {
         StringBuilder jsonStr = new StringBuilder();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(new File("recover.json")));
+            String path = System.getProperty("java.class.path");
+            int firstIndex = path.lastIndexOf(System.getProperty("path.separator")) + 1;
+            int lastIndex = path.lastIndexOf(File.separator) + 1;
+            path = path.substring(firstIndex, lastIndex);
+            BufferedReader reader = new BufferedReader(new FileReader(new File(path + File.separator + "recover.json")));
             String temp = "";
             while ((temp = reader.readLine()) != null) jsonStr.append(temp);
             reader.close();
@@ -336,7 +340,12 @@ public class FileSystem {
 
         String jsonStr = json.toString();
         try {
-            PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(new File("recover.json"))));
+            String path = System.getProperty("java.class.path");
+            int firstIndex = path.lastIndexOf(System.getProperty("path.separator")) + 1;
+            int lastIndex = path.lastIndexOf(File.separator) + 1;
+            path = path.substring(firstIndex, lastIndex);
+            PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(new File(path + File.separator + "recover.json"))));
+            if (writer != null) System.out.println("NO");
             writer.write(jsonStr);
             writer.close();
         } catch (IOException e) {
