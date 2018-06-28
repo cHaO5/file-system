@@ -1,15 +1,18 @@
 package view;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import service.FileSystem;
 import view.FileDirectoryTreeGraph.MyTreeItem;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -85,6 +88,8 @@ public class MainFrame extends Application {
 			//FileDirectoryTreeGraph fileGraph = new FileDirectoryTreeGraph();
 			//root.setTop(fileGraph);
 			//设置透明
+
+
 			this.setLucency();
 
 			primaryStage.setTitle("FileSystem");

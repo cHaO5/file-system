@@ -1,5 +1,7 @@
 package view;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -18,6 +20,8 @@ import util.StringMethod;
 import view.FileDirectoryEditGraph.FileDirectoryItem;
 import view.FileDirectoryTreeGraph.MyTreeItem;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -402,10 +406,35 @@ public class FileManagerGraph extends BorderPane {
 		recoverBtn.setOnMouseClicked(e-> {
 			fileSystem.recover();
 			recover();
+
+//			ObjectMapper mapper = new ObjectMapper();
+//			try {
+//				FileSystem newSystem = mapper.readValue("test.json", FileSystem.class);
+//				fileSystem = newSystem;
+//			} catch (IOException e1) {
+//				e1.printStackTrace();
+//			}
 		});
 
 		Button backUpBtn = this.pathBarGraph.getBackUp();
-		backUpBtn.setOnMouseClicked(e-> fileSystem.backUp());
+		backUpBtn.setOnMouseClicked(e-> {
+			fileSystem.backUp();
+//
+//			String path = System.getProperty("java.class.path");
+//			int firstIndex = path.lastIndexOf(System.getProperty("path.separator")) + 1;
+//			int lastIndex = path.lastIndexOf(File.separator) + 1;
+//			path = path.substring(firstIndex, lastIndex);
+//			ObjectMapper mapper = new ObjectMapper();
+//			try {
+////            mapper.writeValue(new File(path + File.separator + "test.json"), this);
+//				mapper.writeValue(new File("test.json"), this.fileSystem);
+//				System.out.println("output");
+//			} catch (JsonMappingException e1) {
+//				e1.printStackTrace();
+//			} catch (IOException e1) {
+//				e1.printStackTrace();
+//			}
+		});
 	}
 
 	//为编辑窗口的子项设置事件
@@ -633,7 +662,9 @@ public class FileManagerGraph extends BorderPane {
 
 		public Button getRecover() { return recover; }
 		public Button getBackUp() { return backUp; }
-
 	}
 
+	public PathBarGraph getPathBarGraph() {
+		return pathBarGraph;
+	}
 }

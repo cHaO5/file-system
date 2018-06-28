@@ -1,5 +1,7 @@
 package service;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.scene.control.Alert;
 import model.FolderNode;
 import model.Disk;
@@ -344,6 +346,7 @@ public class FileSystem {
             int firstIndex = path.lastIndexOf(System.getProperty("path.separator")) + 1;
             int lastIndex = path.lastIndexOf(File.separator) + 1;
             path = path.substring(firstIndex, lastIndex);
+//            PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(new File("recover.json"))));
             PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(new File(path + File.separator + "recover.json"))));
             if (writer != null) System.out.println("NO");
             writer.write(jsonStr);
@@ -767,7 +770,7 @@ public class FileSystem {
 
         //1. �����ļ�·������ȡ�ļ���
         String[] strArray = pathName.split("/");
-        String fileName = null;
+        String fileName = " ";
         if(strArray.length > 1)
             fileName = strArray[strArray.length - 1];
         //2. ��ȡ�ļ�����
